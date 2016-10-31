@@ -9,9 +9,10 @@ function BehanceLiker(){
 	var self = this;
 
 	var __construct = function() {
+		init();
 		$('#sidebar-fixed .filter-block').after([
 			'<div class="filter-block">',
-				'<span class="js-sort-label sort-label followCounter" style="font-size: 18px;">'
+				'<span class="js-sort-label sort-label followCounter" style="font-size: 18px;">',
 					'<label>Ожидание...</label>',
 				'</span>',
 				'<a class="form-button form-button-green form-button-large followStartBtn" onclick="follower.Stop()" href="javascript://">Start</a>',

@@ -9,6 +9,7 @@ function BehanceFollower(){
 	var self = this;
 
 	var __construct = function() {
+		init();
 		$('#sorts').hide();
 		$('.js-sorts-container').append([
 			'<div style="width: 650px;margin: 0 auto;">',
