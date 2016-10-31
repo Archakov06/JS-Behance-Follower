@@ -15,8 +15,8 @@ function BehanceLiker(){
 				'<span class="js-sort-label sort-label followCounter" style="font-size: 18px;">',
 					'<label>Ожидание...</label>',
 				'</span>',
-				'<a class="form-button form-button-green form-button-large followStartBtn" onclick="follower.Stop()" href="javascript://">Start</a>',
-				'<a class="form-button form-button-red form-button-large followStopBtn" onclick="follower.Stop()" href="javascript://">Stop</a>',
+				'<a class="form-button form-button-green form-button-large followStartBtn" onclick="liker.Stop()" href="javascript://">Start</a>',
+				'<a class="form-button form-button-red form-button-large followStopBtn" onclick="liker.Stop()" href="javascript://">Stop</a>',
 			'</div>'
 		].join(''));
    	}();
