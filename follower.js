@@ -64,7 +64,7 @@ function BehanceFollower(){
 					elem[self.subscribed].click();
 					self.subscribed++;
 				}
-			});
+			}, [1000,5000]);
 			if ( self.subscribed >= elem.length || self.subscribed >= self.maxFollowing || $('.blocking-div')[0] ) {
 				$('.followCounter > label').text('Готово!');
 		  		$('.followCounter > b').text( '' );
