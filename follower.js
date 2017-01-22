@@ -15,7 +15,7 @@ function BehanceFollower(){
 			'<div style="width: 650px;margin: 0 auto;">',
 				'<span class="sort sort-location hide-phone" style="float: left;max-width: 70%;">',
 					'<span class="js-sort-label sort-label followCounter" style="font-size: 18px;">',
-						'<label>Ожидание...</label>'
+						'<label>Ожидание...</label>',
 					'</span>',
 				'</span>',
 				'<div style="float: right;margin-top: 23px;">',
