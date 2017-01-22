@@ -8,7 +8,6 @@ function loadCSS(url) {
 
 function randomTimer(callback,minmax){
 	var rand = Math.floor(Math.random() * (minmax[1] - minmax[0] + 1)) + minmax[0];
-	return rand;
 	setTimeout(function() {
         callback();
     }, rand);

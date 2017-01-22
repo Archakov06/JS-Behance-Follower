@@ -26,7 +26,6 @@ function BehanceFollower(){
    	}();
 
    	function setStatus(finded){
-   		console.clear();
 		console.info('Найдено: '+ finded + ' | Подписок: '+self.subscribed+' | Max: '+ self.maxUsers );
    		$('.followCounter > label').html('<label>Найдено: <b>'+finded+'</b>&nbsp;&nbsp;|&nbsp;&nbsp;Подписок: <b>'+self.subscribed+'</b>&nbsp;&nbsp;|&nbsp;&nbsp;Max: <b>'+self.maxFollowing+'</b></label>');
    	}
@@ -43,7 +42,6 @@ function BehanceFollower(){
 		  if (items.length >= self.maxUsers) {
 		  	clearInterval(self.timer);
 		  	window.scrollTo(0,0);
-		  	console.clear();
 		  	console.info('Скролл завершен!');
 		  	console.info('В списке: '+ $(items).length ); 
 		  	if (callback) callback();
@@ -58,7 +56,6 @@ function BehanceFollower(){
 		this.timer = setInterval(function(){
 			randomTimer(function(){
 				if (!$('.blocking-div')[0]){
-					console.clear();
 					$('.followCounter > label').html( setStatus( $(elem).length ) );
 					console.info('Всего подписок: '+self.subscribed);
 					elem[self.subscribed].click();
@@ -68,7 +65,6 @@ function BehanceFollower(){
 			if ( self.subscribed >= elem.length || self.subscribed >= self.maxFollowing || $('.blocking-div')[0] ) {
 				$('.followCounter > label').text('Готово!');
 		  		$('.followCounter > b').text( '' );
-				console.clear();
 				clearInterval(self.timer);
 				if ($('.blocking-div')[0]) console.error('Ограничение на подписку.');
 				if ( self.subscribed >= this.maxFollowing ) console.info('Достигнуто максимальное количество подписок.');
