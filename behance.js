@@ -2,13 +2,13 @@ function loadCSS(url) {
     var link = document.createElement("link");
     link.type = "text/css";
     link.rel = "stylesheet";
-    link.href = url + '?' + Math.random();
+    link.href = url + '?r=' + Math.random();
     document.getElementsByTagName("head")[0].appendChild(link);
 }
 
 function loadJS(url, callback) {
     var script = document.createElement("script");
-    script.src = url + '?' + Math.random();
+    script.src = url + '?r=' + Math.random();
     document.getElementsByTagName("head")[0].appendChild(url);
     script.onload = function(){
         callback();
@@ -16,7 +16,7 @@ function loadJS(url, callback) {
 }
 
 function loadView(url){
-	$.get(url + '?' + Math.random(), function(resp){
+	$.get(url + '?r=' + Math.random(), function(resp){
 	    $('body').append(resp);
 	});
 }
