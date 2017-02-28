@@ -12,14 +12,10 @@ function BehanceFollower(){
 	var __construct = function() {
 	    
 	    // Подключение и инициализация стилей и прочей ерунды
-	    var script = document.createElement("script");
-	    script.src = 'https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js';
-	    document.body.appendChild(script);
-	    script.onload = function(){
-	        init();
-	    }
+	    loadJS('https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js');
 	    
-	    asyncLoadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
+	    // Подгружаем шаблон панельки
+	    loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
 		
    	}();
    	
@@ -64,7 +60,7 @@ function BehanceFollower(){
 		  	if (callback) callback();
 		  }
 
-		},500);
+		}, 500);
 	}
 
 	this.followAction = function(){
