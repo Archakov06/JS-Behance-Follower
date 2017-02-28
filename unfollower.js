@@ -26,7 +26,7 @@ function BehanceUnFollower(){
    	    var str;
    	    switch (self.status) {
    	        case 'waiting': str = 'Ожидание'; break;
-   	        case 'unfollowing': str = 'Подписываемся'; break;
+   	        case 'unfollowing': str = 'Отписка...'; break;
    	        case 'searching': str = 'Идёт сбор'; break;
    	        case 'finished': 
    	        	str = 'Готово'; 
@@ -79,7 +79,7 @@ function BehanceUnFollower(){
 			}
 			if ( self.unsubscribed >= self.maxUsers || isBlocked() ) {
 				clearInterval(self.timer);
-				alert('Достигнуто максимальное количество подписок.');
+				alert('Достигнуто максимальное количество отписок.');
 				setStat('finished');
 			}
 		}, 4000);

@@ -26,7 +26,7 @@ function BehanceFollower(){
    	    var str;
    	    switch (self.status) {
    	        case 'waiting': str = 'Ожидание'; break;
-   	        case 'following': str = 'Подписываемся'; break;
+   	        case 'following': str = 'Подписка...'; break;
    	        case 'searching': str = 'Идёт сбор'; break;
    	        case 'finished': 
    	        	str = 'Готово'; 
