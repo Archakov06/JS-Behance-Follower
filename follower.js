@@ -12,7 +12,12 @@ function BehanceFollower(){
 	var __construct = function() {
 	    
 	    // Подключение и инициализация стилей и прочей ерунды
-	    loadJS('https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js');
+	    var script = document.createElement("script");
+	    script.src = 'https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js';
+	    document.body.appendChild(script);
+	    script.onload = function(){
+	        init();
+	    }
 	    
 	    // Подгружаем шаблон панельки
 	    loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
