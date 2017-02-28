@@ -4,7 +4,7 @@ function BehanceFollower(){
 	this.finded = 0;
 	this.subscribed = 0;
 	this.delay = 50;
-	this.maxUsers = 250;
+	this.maxUsers = 50;
 	this.status = '';
 
 	var self = this;
@@ -31,7 +31,10 @@ function BehanceFollower(){
    	    switch (this.status) {
    	        case 'following': str = 'Подписываемся'; break;
    	        case 'searching': str = 'Идёт сбор'; break;
-   	        case 'finished': str = 'Готово'; break;
+   	        case 'finished': 
+   	        	str = 'Готово'; 
+   	        	buttonsEnabled(true);
+   	        break;
    	        case 'started': str = 'Начинаем'; break;
    	    }
    	    return str;
@@ -79,22 +82,30 @@ function BehanceFollower(){
 			}
 			if ( self.subscribed >= self.maxUsers || isBlocked() ) {
 				clearInterval(self.timer);
-				if ( self.subscribed >= this.maxFollowing ) alert('Достигнуто максимальное количество подписок.');
+				alert('Достигнуто максимальное количество подписок.');
 				setStat('finished');
 			}
 		}, 4000);
 	}
 
+	function buttonsEnabled(b){
+		if (!b) {
+			$('#bf-stop-btn').attr('disabled','disabled');
+			$('#bf-start-btn').removeAttr('disabled');
+		} else {
+			$('#bf-start-btn').attr('disabled','disabled');
+			$('#bf-stop-btn').removeAttr('disabled');
+		}
+	}
+
 	this.Stop = function(){
-		$('#bf-stop-btn').attr('disabled','disabled');
-		$('#bf-start-btn').removeAttr('disabled');
+		buttonsEnabled(true);
 		clearInterval(this.timer);
 		setStat('finished');
 	}
 
 	this.Start = function(){
-		$('#bf-start-btn').attr('disabled','disabled');
-		$('#bf-stop-btn').removeAttr('disabled');
+		buttonsEnabled(false);
 		clearInterval(this.timer);
 		setStat('started');
 		this.scrollToBottom(function(){ self.followAction(); });
