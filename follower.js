@@ -19,10 +19,7 @@ function BehanceFollower(){
 	        init();
 	    }
 	    
-	    $.get('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/');
-	    
-		// Вставляем блок с панелькой
-		$('body').append('<div class="behance-follower"> <ul> <li> <button id="bf-start-btn" onclick="follower.Start()" class="form-button form-button-green">Старт</button> </li> <li> <button id="bf-stop-btn" onclick="follower.Stop()" disabled class="form-button form-button-red">Стоп</button> </li> <li> <span>Найдено: <b id="bf-finded">0</b></span> </li> <li> <span>Подписано: <b id="bf-subscribed">0</b></span> </li> <li> <span>Статус: <b id="bf-status">Ожидание</b></span> </li> </ul> </div> <style> a { text-decoration: none; } ul { list-style: none; margin: 0; padding: 0; } .behance-follower { background: #fff; border: 1px solid #e6e6e6; border-radius: 3px; position: fixed; right: 15px; bottom: 15px; z-index: 99999999; } .behance-follower span { font-size: 16px; } .behance-follower { width: 220px } .behance-follower ul { padding: 15px; } .behance-follower ul li { margin-bottom: 15px; } .behance-follower ul li button { width: 100%; } .form-button-default { background: linear-gradient(#0096ff, #005dff); border-color: #0071e0; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.3); opacity: 1; } .form-button-green { background: linear-gradient(#34c520, #219211); border-color: #1f960f; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.32); } .form-button-red { background: linear-gradient(#f62f2f, #cc0909); border-color: #a70c0c; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.32); } .form-button[disabled] { opacity: 0.4; } .form-button { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid transparent; border-radius: 3px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; height: 31px; line-height: 29px; padding: 0 15px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; vertical-align: middle; text-align: center; } </style>');
+	    asyncLoadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
 		
    	}();
    	

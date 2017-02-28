@@ -13,3 +13,9 @@ function isBlocked(){
 function init(){
 	loadCSS('https://rawgit.com/Archakov06/JS-Behance-Follower/master/styles.css');
 }
+
+function asyncLoadView(url){
+	$.get(url + '?' + Math.random(), function(resp){
+	    $('body').append(resp);
+	});
+}
