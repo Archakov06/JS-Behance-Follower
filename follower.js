@@ -3,7 +3,7 @@ function BehanceFollower(){
 	this.timer = null;
 	this.finded = 0;
 	this.subscribed = -1;
-	this.maxUsers = 50;
+	this.maxUsers = 250;
 	this.status = 'waiting';
 
 	var self = this;
