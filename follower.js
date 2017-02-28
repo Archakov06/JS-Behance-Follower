@@ -17,8 +17,8 @@ function BehanceFollower(){
 	    document.body.appendChild(script);
 	    script.onload = function(){
 	        init();
-		    // Подгружаем шаблон панельки
-		    loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
+		// Подгружаем шаблон панельки
+		loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
 			
 	    }
 
