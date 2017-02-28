@@ -3,9 +3,8 @@ function BehanceFollower(){
 	this.timer = null;
 	this.finded = 0;
 	this.subscribed = 0;
-	this.delay = 50;
 	this.maxUsers = 50;
-	this.status = '';
+	this.status = 'waiting';
 
 	var self = this;
 
@@ -16,22 +15,22 @@ function BehanceFollower(){
 	    script.src = 'https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js';
 	    document.body.appendChild(script);
 	    script.onload = function(){
-	        init();
-		// Подгружаем шаблон панельки
-		loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
-			
+			init();
+			// Подгружаем шаблон панельки
+			loadView('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/followView.html');
 	    }
 
    	}();
    	
    	function textStatus(){
    	    var str;
-   	    switch (this.status) {
+   	    switch (self.status) {
+   	        case 'waiting': str = 'Ожидание'; break;
    	        case 'following': str = 'Подписываемся'; break;
    	        case 'searching': str = 'Идёт сбор'; break;
    	        case 'finished': 
    	        	str = 'Готово'; 
-   	        	buttonsDisabled(true);
+   	        	buttonsDisabled(false);
    	        break;
    	        case 'started': str = 'Начинаем'; break;
    	    }
@@ -50,7 +49,7 @@ function BehanceFollower(){
    	}
 
 	this.scrollToBottom = function(callback){
-		this.timer = setInterval(function(){
+		self.timer = setInterval(function(){
 		  var items = $('.js-action-follow:not(.following)');
 
 		  window.scrollTo(0,100000000000);
@@ -72,7 +71,7 @@ function BehanceFollower(){
 		var elem = $('.js-action-follow:not(.following)');
 		self.subscribed = 0;
 		setStat('following');
-		this.timer = setInterval(function(){
+		self.timer = setInterval(function(){
 			if (isBlocked() == false){
 				elem[self.subscribed].click();
 				self.subscribed++;
@@ -87,26 +86,28 @@ function BehanceFollower(){
 	}
 
 	function buttonsDisabled(b){
-		if (!b) {
+		if (b) {
 			$('#bf-stop-btn').attr('disabled','disabled');
 			$('#bf-start-btn').removeAttr('disabled');
 		} else {
 			$('#bf-start-btn').attr('disabled','disabled');
 			$('#bf-stop-btn').removeAttr('disabled');
 		}
+		self.status = 'waiting';
 	}
 
 	this.Stop = function(){
 		buttonsDisabled(true);
-		clearInterval(this.timer);
+		clearInterval(self.timer);
 		setStat('finished');
 	}
 
 	this.Start = function(){
+		self.finded = self.subscribed = 0;
 		buttonsDisabled(false);
-		clearInterval(this.timer);
+		clearInterval(self.timer);
 		setStat('started');
-		this.scrollToBottom(function(){ self.followAction(); });
+		self.scrollToBottom(function(){ self.followAction(); });
 	}
 
 }
