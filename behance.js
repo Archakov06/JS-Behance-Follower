@@ -6,13 +6,6 @@ function loadCSS(url) {
     document.getElementsByTagName("head")[0].appendChild(link);
 }
 
-function randomTimer(callback,minmax){
-	var rand = Math.floor(Math.random() * (minmax[1] - minmax[0] + 1)) + minmax[0];
-	setTimeout(function() {
-        callback();
-    }, rand);
-}
-
 function isBlocked(){
 	if ($('.blocking-div')[0]) return true; else return false;
 }

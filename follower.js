@@ -1,94 +1,103 @@
 function BehanceFollower(){
 
 	this.timer = null;
-	this.maxFollowing = 250;
-	this.maxUsers = 250;
+	this.finded = 0;
 	this.subscribed = 0;
 	this.delay = 50;
+	this.maxUsers = 250;
+	this.status = '';
 
 	var self = this;
 
 	var __construct = function() {
-		init();
-		$('#sorts').hide();
-		$('.js-sorts-container').append([
-			'<div style="width: 650px;margin: 0 auto;">',
-				'<span class="sort sort-location hide-phone" style="float: left;max-width: 70%;">',
-					'<span class="js-sort-label sort-label followCounter" style="font-size: 18px;">',
-						'<label>Ожидание...</label>',
-					'</span>',
-				'</span>',
-				'<div style="float: right;margin-top: 23px;">',
-					'<a tabindex="0" onclick="follower.Start()" unselectable="on" href="javascript://" class="form-button form-button-green form-button-large followStartBtn">Начать подписку</a>',
-					'<a class="form-button form-button-red form-button-large followStopBtn" onclick="follower.Stop()" href="javascript://" unselectable="on" tabindex="0" style="opacity: 0.3;margin-left: 10px;">Стоп</a>',
-			'</div>'
-		].join(''));
+	    
+	    // Подключение и инициализация стилей и прочей ерунды
+	    var script = document.createElement("script");
+	    script.src = 'https://rawgit.com/Archakov06/JS-Behance-Follower/master/behance.js';
+	    document.body.appendChild(script);
+	    script.onload = function(){
+	        init();
+	    }
+	    
+	    $.get('https://rawgit.com/Archakov06/JS-Behance-Follower/master/views/');
+	    
+		// Вставляем блок с панелькой
+		$('body').append('<div class="behance-follower"> <ul> <li> <button id="bf-start-btn" onclick="follower.Start()" class="form-button form-button-green">Старт</button> </li> <li> <button id="bf-stop-btn" onclick="follower.Stop()" disabled class="form-button form-button-red">Стоп</button> </li> <li> <span>Найдено: <b id="bf-finded">0</b></span> </li> <li> <span>Подписано: <b id="bf-subscribed">0</b></span> </li> <li> <span>Статус: <b id="bf-status">Ожидание</b></span> </li> </ul> </div> <style> a { text-decoration: none; } ul { list-style: none; margin: 0; padding: 0; } .behance-follower { background: #fff; border: 1px solid #e6e6e6; border-radius: 3px; position: fixed; right: 15px; bottom: 15px; z-index: 99999999; } .behance-follower span { font-size: 16px; } .behance-follower { width: 220px } .behance-follower ul { padding: 15px; } .behance-follower ul li { margin-bottom: 15px; } .behance-follower ul li button { width: 100%; } .form-button-default { background: linear-gradient(#0096ff, #005dff); border-color: #0071e0; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.3); opacity: 1; } .form-button-green { background: linear-gradient(#34c520, #219211); border-color: #1f960f; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.32); } .form-button-red { background: linear-gradient(#f62f2f, #cc0909); border-color: #a70c0c; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,0.32); } .form-button[disabled] { opacity: 0.4; } .form-button { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid transparent; border-radius: 3px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; height: 31px; line-height: 29px; padding: 0 15px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; vertical-align: middle; text-align: center; } </style>');
+		
    	}();
-
-   	function setStatus(finded){
-		console.info('Найдено: '+ finded + ' | Подписок: '+self.subscribed+' | Max: '+ self.maxUsers );
-   		$('.followCounter > label').html('<label>Найдено: <b>'+finded+'</b>&nbsp;&nbsp;|&nbsp;&nbsp;Подписок: <b>'+self.subscribed+'</b>&nbsp;&nbsp;|&nbsp;&nbsp;Max: <b>'+self.maxFollowing+'</b></label>');
+   	
+   	function textStatus(){
+   	    var str;
+   	    switch (this.status) {
+   	        case 'following': str = 'Подписываемся'; break;
+   	        case 'searching': str = 'Идёт сбор'; break;
+   	        case 'finished': str = 'Готово'; break;
+   	        case 'started': str = 'Начинаем'; break;
+   	    }
+   	    return str;
+   	}
+    
+   	function setStat(s){
+   	    self.status = s;
+   	    $('#bf-finded').text(self.finded);
+   	    $('#bf-subscribed').text(self.subscribed);
+   	    $('#bf-status').text(textStatus(self.status));
+   	}
+   	
+   	function isBlocked(){
+   	    if (!$('.blocking-div')[0]) return false; else return true;
    	}
 
 	this.scrollToBottom = function(callback){
 		this.timer = setInterval(function(){
 		  var items = $('.js-action-follow:not(.following)');
-		  var I = 0;
 
 		  window.scrollTo(0,100000000000);
 
-		  setStatus( items.length );
+		  self.finded = items.length;
+		  
+		  setStat('searching');
 
-		  if (items.length >= self.maxUsers) {
+		  if (items.length >= self.maxUsers){
 		  	clearInterval(self.timer);
 		  	window.scrollTo(0,0);
-		  	console.info('Скролл завершен!');
-		  	console.info('В списке: '+ $(items).length ); 
 		  	if (callback) callback();
 		  }
 
 		},500);
 	}
 
-	this.following = function(){
+	this.followAction = function(){
 		var elem = $('.js-action-follow:not(.following)');
 		self.subscribed = 0;
+		setStat('following');
 		this.timer = setInterval(function(){
-			randomTimer(function(){
-				if (!$('.blocking-div')[0]){
-					$('.followCounter > label').html( setStatus( $(elem).length ) );
-					console.info('Всего подписок: '+self.subscribed);
-					elem[self.subscribed].click();
-					self.subscribed++;
-				}
-			}, [1000,5000]);
-			if ( self.subscribed >= elem.length || self.subscribed >= self.maxFollowing || $('.blocking-div')[0] ) {
-				$('.followCounter > label').text('Готово!');
-		  		$('.followCounter > b').text( '' );
-				clearInterval(self.timer);
-				if ($('.blocking-div')[0]) console.error('Ограничение на подписку.');
-				if ( self.subscribed >= this.maxFollowing ) console.info('Достигнуто максимальное количество подписок.');
-				console.info('Всего: '+ self.subscribed);
-				console.log('Подписка завершена!');
+			if (isBlocked() == false){
+				elem[self.subscribed].click();
+				self.subscribed++;
+				setStat('following');
 			}
-		},1000);
+			if ( self.subscribed >= self.maxUsers || isBlocked() ) {
+				clearInterval(self.timer);
+				if ( self.subscribed >= this.maxFollowing ) alert('Достигнуто максимальное количество подписок.');
+				setStat('finished');
+			}
+		}, 4000);
 	}
 
 	this.Stop = function(){
-		$('.followStopBtn').css({'opacity':'0.3'});
-		$('.followStartBtn').css({'opacity':'1'});
+		$('#bf-stop-btn').attr('disabled','disabled');
+		$('#bf-start-btn').removeAttr('disabled');
 		clearInterval(this.timer);
-		$('.followCounter > label').text('Остановлен!');
-		$('.followCounter > b').text( '' );
+		setStat('finished');
 	}
 
 	this.Start = function(){
-		$('.followCounter > label').text('Начинаем!');
-		$('.followCounter > b').text( '' );
-		$('.followStartBtn').css({'opacity':'0.3'});
-		$('.followStopBtn').css({'opacity':'1'});
-		console.log('Подписка началась');
-		this.scrollToBottom(function(){ self.following(); });
+		$('#bf-start-btn').attr('disabled','disabled');
+		$('#bf-stop-btn').removeAttr('disabled');
+		clearInterval(this.timer);
+		setStat('started');
+		this.scrollToBottom(function(){ self.followAction(); });
 	}
 
 }
