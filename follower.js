@@ -31,7 +31,7 @@ function BehanceFollower(){
    	        case 'searching': str = 'Идёт сбор'; break;
    	        case 'finished': 
    	        	str = 'Готово'; 
-   	        	buttonsEnabled(true);
+   	        	buttonsDisabled(true);
    	        break;
    	        case 'started': str = 'Начинаем'; break;
    	    }
@@ -86,7 +86,7 @@ function BehanceFollower(){
 		}, 4000);
 	}
 
-	function buttonsEnabled(b){
+	function buttonsDisabled(b){
 		if (!b) {
 			$('#bf-stop-btn').attr('disabled','disabled');
 			$('#bf-start-btn').removeAttr('disabled');
@@ -97,13 +97,13 @@ function BehanceFollower(){
 	}
 
 	this.Stop = function(){
-		buttonsEnabled(true);
+		buttonsDisabled(true);
 		clearInterval(this.timer);
 		setStat('finished');
 	}
 
 	this.Start = function(){
-		buttonsEnabled(false);
+		buttonsDisabled(false);
 		clearInterval(this.timer);
 		setStat('started');
 		this.scrollToBottom(function(){ self.followAction(); });
