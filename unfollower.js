@@ -68,7 +68,7 @@ function BehanceUnFollower(){
 	}
 
 	this.unfollowAction = function(){
-		var elem = $('.js-action-follow.unfollowing');
+		var elem = $('.js-action-follow.following');
 		self.unsubscribed = 0;
 		setStat('unfollowing');
 		self.timer = setInterval(function(){
