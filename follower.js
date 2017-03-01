@@ -82,7 +82,7 @@ function BehanceFollower(){
 				alert('Достигнуто максимальное количество подписок.');
 				setStat('finished');
 			}
-		}, 4000);
+		}, 2000);
 	}
 
 	function buttonsDisabled(b){
