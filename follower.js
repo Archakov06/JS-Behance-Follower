@@ -68,7 +68,7 @@ function BehanceFollower(){
 	}
 
 	this.followAction = function(){
-		var elem = $('.js-action-follow:not(.following)');
+		var elem = $('div[class*="FollowButton-root"] button[class*="Btn-primary"]');
 		self.subscribed = 0;
 		setStat('following');
 		self.timer = setInterval(function(){
