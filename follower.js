@@ -50,7 +50,7 @@ function BehanceFollower(){
 
 	this.scrollToBottom = function(callback){
 		self.timer = setInterval(function(){
-		  var items = $('.js-action-follow:not(.following)');
+		  var items = $('div[class*="FollowButton-root"] button[class*="Btn-primary"]');
 
 		  window.scrollTo(0,100000000000);
 
